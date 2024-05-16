@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const cors = require('cors')
 const user = require('./routes/user')
+const consumer = require('./routes/consumer')
 const app = express()
 
 dotenv.config()
@@ -16,3 +17,4 @@ app.listen(process.env.PORT, () => {
 connectDB();
 
 app.use(user)
+app.use(consumer)
