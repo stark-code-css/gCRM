@@ -22,7 +22,8 @@ const consumerSchema = new mongoose.Schema({
     consumer_aadhar:{
         type: Number,
         required: true,
-        length: 12
+        length: 12,
+        unique: true
     },
     consumer_phone:{
         type: Number,
