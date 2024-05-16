@@ -136,4 +136,25 @@ const deleteConsumer = (req, res) => {
         });
 }
 
-module.exports = { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer }
+const findByAadhaar = (req, res) => {
+    Consumer.find({ consumer_aadhar: req.params.consumer_aadhar })
+        .then(consumer => {
+            if (!consumer) {
+                return res.status(404).send({
+                    message: "Consumer not found with aadhar " + req.params.consumer_aadhar
+                });
+            }
+            res.send(consumer);
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Consumer not found with aadhar " + req.params.consumer_aadhar
+                });
+            }
+            return res.status(500).send({
+                message: "Error retrieving consumer with aadhar " + req.params.consumer_aadhar
+            });
+        });
+}
+
+module.exports = { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer, findByAadhaar }
