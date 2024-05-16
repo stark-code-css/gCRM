@@ -29,6 +29,10 @@ const consumerSchema = new mongoose.Schema({
         required: true,
         length: 10
     },
+    isDistributed:{
+        type: Boolean,
+        default: false
+    },
 })
 
 module.exports = mongoose.model('consumer', consumerSchema)

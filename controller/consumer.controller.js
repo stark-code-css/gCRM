@@ -10,7 +10,8 @@ const createConsumer = (req, res) => {
         consumer_husband_name: req.body.consumer_husband_name,
         consumer_address: req.body.consumer_address,
         consumer_aadhar: req.body.consumer_aadhar,
-        consumer_phone: req.body.consumer_phone
+        consumer_phone: req.body.consumer_phone,
+        isDistributed: req.body.isDistributed
     });
 
     // Save Consumer in the database
