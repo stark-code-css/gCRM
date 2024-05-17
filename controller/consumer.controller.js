@@ -36,15 +36,18 @@ const findAllConsumers = (req, res) => {
         });
 }
 
-const consumerCount = (req, res) => {
-    Consumer.countDocuments()
-    .then(consumers => {
-        res.send(consumers.toString());
-    }).catch(err => {
+const consumerCount = async (req, res) => {
+    try{
+        const total = await Consumer.countDocuments()
+        const done = await Consumer.countDocuments({ isDistributed: true })
+        const pending = await Consumer.countDocuments({ isDistributed: false })
+        res.send({ total, done, pending })
+    }
+    catch(err){
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving consumers."
         });
-    });
+    }
 }
 
 const findByConsumerId = (req, res) => {
