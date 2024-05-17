@@ -36,6 +36,17 @@ const findAllConsumers = (req, res) => {
         });
 }
 
+const consumerCount = (req, res) => {
+    Consumer.countDocuments()
+    .then(consumers => {
+        res.send(consumers.toString());
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving consumers."
+        });
+    });
+}
+
 const findByConsumerId = (req, res) => {
     Consumer.find({ consumer_id: req.params.consumer_id })
         .then(consumer => {
@@ -153,27 +164,6 @@ const findByAadhaar = (req, res) => {
             }
             return res.status(500).send({
                 message: "Error retrieving consumer with aadhar " + req.params.consumer_aadhar
-            });
-        });
-}
-
-const consumerCount = (req, res) => {
-    Consumer.countDocuments()
-        .then(consumer => {
-            if (!consumer) {
-                return res.status(404).send({
-                    message: "Consumer not found"
-                });
-            }
-            res.send(consumer);
-        }).catch(err => {
-            if (err.kind === 'ObjectId') {
-                return res.status(404).send({
-                    message: "Consumer not found"
-                });
-            }
-            return res.status(500).send({
-                message: "Error retrieving consumer"
             });
         });
 }
