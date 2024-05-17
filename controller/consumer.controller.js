@@ -157,4 +157,25 @@ const findByAadhaar = (req, res) => {
         });
 }
 
-module.exports = { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer, findByAadhaar }
+const consumerCount = (req, res) => {
+    Consumer.countDocuments()
+        .then(consumer => {
+            if (!consumer) {
+                return res.status(404).send({
+                    message: "Consumer not found"
+                });
+            }
+            res.send(consumer);
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Consumer not found"
+                });
+            }
+            return res.status(500).send({
+                message: "Error retrieving consumer"
+            });
+        });
+}
+
+module.exports = { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer, findByAadhaar, consumerCount }
