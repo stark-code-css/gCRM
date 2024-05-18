@@ -93,7 +93,7 @@ const findByName = (req, res) => {
 }
 
 const findByVillage = (req, res) => {
-    Consumer.find({ consumer_village: req.params.village })
+    Consumer.find({ consumer_address: req.params.village })
         .then(consumer => {
             if (!consumer) {
                 return res.status(404).send({
