@@ -92,6 +92,27 @@ const findByName = (req, res) => {
         });
 }
 
+const findByVillage = (req, res) => {
+    Consumer.find({ consumer_village: req.params.village })
+        .then(consumer => {
+            if (!consumer) {
+                return res.status(404).send({
+                    message: "Consumer not found with village " + req.params.village
+                });
+            }
+            res.send(consumer);
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Consumer not found with village " + req.params.village
+                });
+            }
+            return res.status(500).send({
+                message: "Error retrieving consumer with village " + req.params.village
+            });
+    })
+}
+
 const updateConsumer = (req, res) => {
     // Validate Request
     if (!req.body) {
@@ -171,4 +192,4 @@ const findByAadhaar = (req, res) => {
         });
 }
 
-module.exports = { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer, findByAadhaar, consumerCount }
+module.exports = { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer, findByAadhaar, consumerCount, findByVillage }

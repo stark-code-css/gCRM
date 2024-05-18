@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer, findByAadhaar, consumerCount } = require('../controller/consumer.controller')
+const { createConsumer, findAllConsumers, findByConsumerId, findByName, updateConsumer, deleteConsumer, findByAadhaar, consumerCount, findByVillage } = require('../controller/consumer.controller')
 const jwt = require('jsonwebtoken')
 
 router.use((req, res, next) => {
@@ -25,5 +25,6 @@ router.delete('/consumer/:consumer_id', deleteConsumer)
 router.get('/consumer/name/:consumer_name', findByName)
 router.get('/consumer/aadhar/:consumer_aadhar', findByAadhaar)
 router.get('/consumer', consumerCount)
+router.get('/consumer/address/:village', consumerCount)
 
 module.exports = router
