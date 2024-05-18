@@ -25,6 +25,6 @@ router.delete('/consumer/:consumer_id', deleteConsumer)
 router.get('/consumer/name/:consumer_name', findByName)
 router.get('/consumer/aadhar/:consumer_aadhar', findByAadhaar)
 router.get('/consumer', consumerCount)
-router.get('/consumer/address/:village', consumerCount)
+router.get('/consumer/address/:village', findByVillage)
 
 module.exports = router
